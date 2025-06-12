@@ -1,0 +1,20 @@
+name: Build CSS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Sass
+        run: npm install -g sass
+      - name: Compile SCSS to CSS
+        run: sass src/color-utilities.scss dist/color-utilities.css
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: css
+          path: dist/color-utilities.css
