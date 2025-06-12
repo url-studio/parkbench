@@ -18,12 +18,12 @@ jobs:
       - name: Install Sass
         run: npm install -g sass
 
-      - name: Compile SCSS to CSS
+      - name: Compile SCSS
         run: sass src/color-utilities.scss color-utilities.css
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
           publish_dir: ./
-
