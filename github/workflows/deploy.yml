@@ -1,8 +1,11 @@
-name: Build and Deploy CSS to GitHub Pages
+name: Build SCSS and Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -15,14 +18,12 @@ jobs:
       - name: Install Sass
         run: npm install -g sass
 
-      - name: Create dist folder
-        run: mkdir -p dist
-
       - name: Compile SCSS to CSS
-        run: sass src/color-utilities.scss dist/color-utilities.css
+        run: sass src/color-utilities.scss color-utilities.css
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./
+
