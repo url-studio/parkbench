@@ -1,0 +1,72 @@
+$colors: (
+  black: #000000,
+  white: #ffffff,
+  transparent: transparent,
+
+  base: (
+    1: #f2fcfd, 2: #e3f8ff, 3: #d0f0fc, 4: #bfe6f4, 5: #b2d9e9,
+    6: #a6cfe2, 7: #91bfd4, 8: #80adc4, 9: #6f9db3, 10: #628da3,
+    11: #547d93, 12: #476b7f, 13: #3c5b6d, 14: #2f4c5b, 15: #1f3b49,
+    16: #193341, 17: #0e2935, 18: #071f28, 19: #04171e, 20: #011216
+  ),
+  red: (
+    1: #fff3f3, 2: #ffe6e8, 3: #ffdcde, 4: #ffdcde, 5: #ffc5cb,
+    6: #ffb3bc, 7: #f79fa6, 8: #ef8e92, 9: #e8777f, 10: #dd626b,
+    11: #ce4952, 12: #c63e48, 13: #b73238, 14: #aa2731, 15: #a02030,
+    16: #931228, 17: #890a22, 18: #77011d, 19: #66001d, 20: #54001c
+  ),
+  orange: (
+    1: #fff2eb, 2: #ffeade, 3: #ffe2cf, 4: #ffd8bd, 5: #ffcdab,
+    6: #ffbf9c, 7: #f9b08c, 8: #ef9e7b, 9: #ed8c6b, 10: #e2745a,
+    11: #d86348, 12: #d15539, 13: #cc4b32, 14: #bc402b, 15: #af3825,
+    16: #a03322, 17: #912a1c, 18: #7f2112, 19: #701910, 20: #630e07
+  ),
+  yellow: (
+    1: #fffde9, 2: #fffcd4, 3: #fff8c7, 4: #fff2bd, 5: #ffeaae,
+    6: #ffe2a1, 7: #ffdb92, 8: #f9d07d, 9: #f7c96d, 10: #f9bb5a,
+    11: #f7a94b, 12: #f29e38, 13: #ed9515, 14: #ed9515, 15: #d17609,
+    16: #c46905, 17: #af5700, 18: #914500, 19: #7a3700, 20: #632f00
+  ),
+  green: (
+    1: #f4fff3, 2: #e4f9e4, 3: #d3f4d3, 4: #c5edc5, 5: #b0e2b1,
+    6: #a0d8a3, 7: #8bc98b, 8: #7abc7a, 9: #66ad66, 10: #58a058,
+    11: #479147, 12: #387f38, 13: #2f752f, 14: #216821, 15: #1b5e1b,
+    16: #185418, 17: #124912, 18: #0b420b, 19: #073a07, 20: #033003
+  ),
+  blue: (
+    1: #eefcff, 2: #e1f9ff, 3: #ccf1ff, 4: #bdefff, 5: #a7e5f9,
+    6: #9dddf4, 7: #8bd1ea, 8: #7cc5e5, 9: #6bb4dd, 10: #57a4d3,
+    11: #3d93c9, 12: #3483bf, 13: #3077b7, 14: #206ba8, 15: #15629b,
+    16: #15629b, 17: #064e84, 18: #014577, 19: #003a66, 20: #003454
+  ),
+  purple: (
+    1: #f5f9ff, 2: #ebf2ff, 3: #e1eaff, 4: #d9e3ff, 5: #cfdaff,
+    6: #c5d0ff, 7: #b3c3f2, 8: #a2b3ed, 9: #91a7e8, 10: #8398e2,
+    11: #7c87d8, 12: #6c73c4, 13: #6064ba, 14: #5057aa, 15: #454f9b,
+    16: #3c488e, 17: #2f3f7f, 18: #283a72, 19: #1e3263, 20: #162954
+  )
+);
+
+@mixin generate-color-utilities($prefix, $property, $pseudo: null, $state-class: null) {
+  @each $color, $shades in $colors {
+    @if type-of($shades) == 'map' {
+      @each $shade, $value in $shades {
+        .#{$prefix}-#{$color}-#{$shade}#{$pseudo}#{$state-class} {
+          #{$property}: #{$value};
+        }
+      }
+    } @else {
+      .#{$prefix}-#{$color}#{$pseudo}#{$state-class} {
+        #{$property}: #{$shades};
+      }
+    }
+  }
+}
+
+// Base utilities
+@include generate-color-utilities("bg", "background-color");
+@include generate-color-utilities("text", "color");
+@include generate-color-utilities("hover-bg", "background-color", ":hover");
+@include generate-color-utilities("hover-text", "color", ":hover");
+@include generate-color-utilities("active-bg", "background-color", null, ".active");
+@include generate-color-utilities("active-text", "color", null, ".active");
